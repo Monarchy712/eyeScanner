@@ -48,6 +48,19 @@ void inorder(struct node* root){
     }
 }
 
+/* 🔍 SEARCH FUNCTION */
+struct node* search(struct node* root, int key){
+    if(root == NULL || root->data == key){
+        return root;
+    }
+    if(key &lt; root->data){
+        return search(root->left, key);
+    }
+    else{
+        return search(root->right, key);
+    }
+}
+
 struct node* inOrderPred(struct node * root){
     root = root->left;
     while(root->right!=NULL) root = root->right;
@@ -101,11 +114,22 @@ int main(){
 
     inorder(root);
     printf("\n");
+
+    /* 🔍 SEARCH USAGE */
+    struct node* found = search(root, 5);
+    if(found != NULL){
+        printf("Found: %d\n", found->data);
+    } else {
+        printf("Not Found\n");
+    }
+
     root = deleteNode(root, 4);
     printf("\n");
     inorder(root);
+
     printf("\n");
     insert(root, 4);
+
     printf("\n");
     inorder(root);
 }
